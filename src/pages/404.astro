@@ -16,8 +16,11 @@ const t = sections.find(s => s.id === 'home')!.data as unknown as Translations
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>404 — Be Partner Labs</title>
 <link rel="icon" href="/favicon.ico">
+<style is:global>
+  @import '../styles/tokens.css';
+  @import '../styles/animations.css';
+</style>
 <style>
-  @import '/src/styles/tokens.css';
 
   html, body {
     margin: 0;
