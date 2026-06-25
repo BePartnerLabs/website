@@ -1,0 +1,279 @@
+---
+export const prerender = true
+const MARK_URL = 'https://bepartnerlabs.com/brand/email-mark.png'
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Signature — Be Partner Labs</title>
+<link rel="icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F6F2; --surface: #FFFFFF; --ink: #16140F; --ink2: #3A3733; --ink3: #6E6962;
+    --line: #E4DFD5; --mint: #5FCB9F; --mint-deep: #2F8A66; --mint-ink: #0F3D2E;
+    --sans: 'Be Vietnam Pro', -apple-system, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 32px 96px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mint-deep); margin-bottom: 16px; }
+  h1 { font-size: 44px; line-height: 1.04; letter-spacing: -0.03em; font-weight: 600; margin: 0 0 16px; }
+  .lead { font-size: 17px; line-height: 1.55; color: var(--ink2); max-width: 60ch; margin: 0 0 48px; }
+
+  .section-label { display: flex; align-items: baseline; gap: 14px; margin: 48px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .section-num { font-family: var(--mono); font-size: 12px; color: var(--mint-deep); letter-spacing: 0.1em; }
+  .section-title { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .section-meta { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.06em; }
+
+  .stage { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 36px; margin-bottom: 16px; }
+  .hint { font-size: 13px; line-height: 1.6; color: var(--ink3); margin: 0 0 20px; }
+
+  .copybar { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .copybtn { font-family: var(--sans); font-size: 13px; font-weight: 500; height: 36px; padding: 0 16px; border-radius: 8px; border: none; background: var(--ink); color: var(--bg); cursor: pointer; transition: background 0.15s; }
+  .copybtn:hover { background: var(--mint-deep); }
+  .copybtn.copied { background: var(--mint); color: var(--mint-ink); }
+  .copynote { font-family: var(--mono); font-size: 11px; color: var(--ink3); letter-spacing: 0.04em; }
+
+  .setup { background: #1F1C16; color: #F2EEE6; border-radius: 14px; padding: 24px 28px; margin: 0 0 40px; }
+  .setup h2 { font-size: 14px; font-weight: 600; margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  .setup h2 .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--mint); }
+  .setup ol { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.7; color: #C9C2B5; }
+  .setup ol b { color: #F2EEE6; font-weight: 600; }
+  .setup code { font-family: var(--mono); font-size: 12px; color: var(--mint); background: rgba(95,203,159,0.12); padding: 2px 6px; border-radius: 4px; }
+
+  /* personalize panel */
+  .fields { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 28px 32px; margin-bottom: 48px; }
+  .fields-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint-deep); }
+  .field input { font-family: var(--sans); font-size: 14px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 13px; outline: none; transition: border-color 0.15s; }
+  .field input:focus { border-color: var(--mint); }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 36px 18px 72px; }
+    h1 { font-size: 34px; }
+    .stage { padding: 22px; }
+    .fields { padding: 20px; }
+    .fields-grid { grid-template-columns: 1fr; }
+    .section-label { flex-wrap: wrap; }
+    .section-meta { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Be Partner Labs · Brand System</div>
+  <h1>Email signature</h1>
+  <p class="lead">Three layouts built from the brand system. Each renders in Gmail, Outlook, and Apple Mail — table-based, inline-styled, no external CSS. Fill in your details, then click <strong>Copy</strong> and paste into Gmail Settings → Signature.</p>
+
+  <div class="setup">
+    <h2><span class="dot"></span>Logo URL</h2>
+    <ol>
+      <li>Email clients (Gmail, Outlook) <b>strip inline SVG</b> — the logo is referenced as a hosted PNG at <code>{MARK_URL}</code>.</li>
+      <li>Make sure <code>public/brand/email-mark.png</code> is deployed to production at that path before sending.</li>
+      <li>This page previews the logo from the local SVG; the copyable signatures use the production URL.</li>
+    </ol>
+  </div>
+
+  <!-- PERSONALIZE -->
+  <div class="fields">
+    <div class="fields-grid">
+      <div class="field">
+        <label for="f-name">Name</label>
+        <input id="f-name" type="text" value="Jorge Saud" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-charge">Role / Charge</label>
+        <input id="f-charge" type="text" value="Co-Founder · Director of Technology" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" value="jorge@bepartnerlabs.com" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone</label>
+        <input id="f-phone" type="text" value="+56 9 0000 0000" autocomplete="off">
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIMARY -->
+  <div class="section-label">
+    <span class="section-num">01</span>
+    <span class="section-title">Primary — full signature</span>
+    <span class="section-meta">Founders · client-facing</span>
+  </div>
+  <p class="hint">Use for all external client communication.</p>
+  <div class="stage">
+    <div id="sig-primary-preview">
+      <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Be Vietnam Pro', Arial, sans-serif; border-collapse: collapse;">
+        <tr>
+          <td style="vertical-align: top; padding-right: 20px; border-right: 2px solid #5FCB9F;">
+            <img src="/brand/mark-mint.svg" width="44" height="45" alt="Be Partner Labs" style="display:block;border:0;outline:none;">
+          </td>
+          <td style="vertical-align: top; padding-left: 20px;">
+            <div style="font-size: 16px; font-weight: 600; color: #16140F; letter-spacing: -0.01em; line-height: 1.2;"><span data-field="name">Jorge Saud</span></div>
+            <div style="font-size: 12px; color: #6E6962; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; margin-top: 3px;"><span data-field="charge">Co-Founder · Director of Technology</span></div>
+            <div style="margin-top: 12px; font-size: 13px; line-height: 1.5;">
+              <span style="font-weight: 600; color: #16140F;">Be Partner</span><span style="font-size: 9px; font-weight: 600; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; color: #2F8A66; padding-left: 6px;">LABS</span>
+            </div>
+            <div style="margin-top: 10px; font-size: 12px; line-height: 1.7; color: #3A3733;">
+              <a data-field-href="email" href="mailto:jorge@bepartnerlabs.com" style="color: #2F8A66; text-decoration: none;"><span data-field="email">jorge@bepartnerlabs.com</span></a><br>
+              <a href="https://bepartnerlabs.com" style="color: #3A3733; text-decoration: none;">bepartnerlabs.com</a><span style="color: #9C968D;"> · </span><span data-field="phone" style="color: #6E6962;">+56 9 0000 0000</span>
+            </div>
+            <div style="margin-top: 12px; font-size: 10px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; color: #9C968D; text-transform: uppercase;">Web performance partnerships · Sprint-based</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- hidden: copyable HTML with hosted PNG URL -->
+    <div id="sig-primary" style="display:none;">
+      <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Be Vietnam Pro', Arial, sans-serif; border-collapse: collapse;">
+        <tr>
+          <td style="vertical-align: top; padding-right: 20px; border-right: 2px solid #5FCB9F;">
+            <img src={MARK_URL} width="44" height="45" alt="Be Partner Labs" style="display:block;border:0;outline:none;">
+          </td>
+          <td style="vertical-align: top; padding-left: 20px;">
+            <div style="font-size: 16px; font-weight: 600; color: #16140F; letter-spacing: -0.01em; line-height: 1.2;"><span data-field="name">Jorge Saud</span></div>
+            <div style="font-size: 12px; color: #6E6962; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; margin-top: 3px;"><span data-field="charge">Co-Founder · Director of Technology</span></div>
+            <div style="margin-top: 12px; font-size: 13px; line-height: 1.5;">
+              <span style="font-weight: 600; color: #16140F;">Be Partner</span><span style="font-size: 9px; font-weight: 600; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; color: #2F8A66; padding-left: 6px;">LABS</span>
+            </div>
+            <div style="margin-top: 10px; font-size: 12px; line-height: 1.7; color: #3A3733;">
+              <a data-field-href="email" href="mailto:jorge@bepartnerlabs.com" style="color: #2F8A66; text-decoration: none;"><span data-field="email">jorge@bepartnerlabs.com</span></a><br>
+              <a href="https://bepartnerlabs.com" style="color: #3A3733; text-decoration: none;">bepartnerlabs.com</a><span style="color: #9C968D;"> · </span><span data-field="phone" style="color: #6E6962;">+56 9 0000 0000</span>
+            </div>
+            <div style="margin-top: 12px; font-size: 10px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; color: #9C968D; text-transform: uppercase;">Web performance partnerships · Sprint-based</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="copybar">
+      <button class="copybtn" data-target="sig-primary">Copy signature</button>
+      <span class="copynote">Renders in Gmail · Outlook · Apple Mail</span>
+    </div>
+  </div>
+
+  <!-- COMPACT -->
+  <div class="section-label">
+    <span class="section-num">02</span>
+    <span class="section-title">Compact — single line</span>
+    <span class="section-meta">Internal · replies</span>
+  </div>
+  <p class="hint">For internal threads and quick replies. Minimal vertical footprint.</p>
+  <div class="stage">
+    <div id="sig-compact-preview">
+      <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Be Vietnam Pro', Arial, sans-serif; border-collapse: collapse;">
+        <tr>
+          <td style="vertical-align: middle; padding-right: 12px;">
+            <img src="/brand/mark-mint.svg" width="26" height="27" alt="Be Partner Labs" style="display:block;border:0;outline:none;">
+          </td>
+          <td style="vertical-align: middle; font-size: 13px; color: #3A3733;">
+            <span data-field="name" style="font-weight: 600; color: #16140F;">Jorge Saud</span><span style="color: #9C968D;"> · </span><span style="color: #6E6962;">Be Partner Labs</span><span style="color: #9C968D;"> · </span><a data-field-href="email" href="mailto:jorge@bepartnerlabs.com" style="color: #2F8A66; text-decoration: none;"><span data-field="email">jorge@bepartnerlabs.com</span></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="sig-compact" style="display:none;">
+      <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Be Vietnam Pro', Arial, sans-serif; border-collapse: collapse;">
+        <tr>
+          <td style="vertical-align: middle; padding-right: 12px;">
+            <img src={MARK_URL} width="26" height="27" alt="Be Partner Labs" style="display:block;border:0;outline:none;">
+          </td>
+          <td style="vertical-align: middle; font-size: 13px; color: #3A3733;">
+            <span data-field="name" style="font-weight: 600; color: #16140F;">Jorge Saud</span><span style="color: #9C968D;"> · </span><span style="color: #6E6962;">Be Partner Labs</span><span style="color: #9C968D;"> · </span><a data-field-href="email" href="mailto:jorge@bepartnerlabs.com" style="color: #2F8A66; text-decoration: none;"><span data-field="email">jorge@bepartnerlabs.com</span></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="copybar">
+      <button class="copybtn" data-target="sig-compact">Copy signature</button>
+      <span class="copynote">One-line · minimal</span>
+    </div>
+  </div>
+
+  <!-- STACKED -->
+  <div class="section-label">
+    <span class="section-num">03</span>
+    <span class="section-title">Stacked — no logo</span>
+    <span class="section-meta">Fallback · plain clients</span>
+  </div>
+  <p class="hint">Text-only fallback for email clients that strip images. Mint left-rule keeps brand presence.</p>
+  <div class="stage">
+    <div id="sig-stacked">
+      <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Be Vietnam Pro', Arial, sans-serif; border-collapse: collapse;">
+        <tr>
+          <td style="border-left: 3px solid #5FCB9F; padding-left: 16px;">
+            <div style="font-size: 15px; font-weight: 600; color: #16140F; letter-spacing: -0.01em;"><span data-field="name">Jorge Saud</span></div>
+            <div style="font-size: 12px; color: #6E6962; font-family: 'JetBrains Mono', monospace; margin-top: 3px;"><span data-field="charge">Co-Founder · Director of Technology</span></div>
+            <div style="font-size: 13px; color: #16140F; font-weight: 600; margin-top: 10px;">Be Partner Labs</div>
+            <div style="font-size: 12px; line-height: 1.7; margin-top: 6px;">
+              <a data-field-href="email" href="mailto:jorge@bepartnerlabs.com" style="color: #2F8A66; text-decoration: none;"><span data-field="email">jorge@bepartnerlabs.com</span></a><span style="color: #9C968D;"> · </span><a href="https://bepartnerlabs.com" style="color: #3A3733; text-decoration: none;">bepartnerlabs.com</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="copybar">
+      <button class="copybtn" data-target="sig-stacked">Copy signature</button>
+      <span class="copynote">Image-free fallback</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const inputs: Record<string, HTMLInputElement> = {
+  name:   document.getElementById('f-name') as HTMLInputElement,
+  charge: document.getElementById('f-charge') as HTMLInputElement,
+  email:  document.getElementById('f-email') as HTMLInputElement,
+  phone:  document.getElementById('f-phone') as HTMLInputElement,
+};
+
+function update(field: string, value: string) {
+  document.querySelectorAll<HTMLElement>(`[data-field="${field}"]`).forEach(el => {
+    el.textContent = value;
+  });
+  if (field === 'email') {
+    document.querySelectorAll<HTMLAnchorElement>('[data-field-href="email"]').forEach(a => {
+      a.href = `mailto:${value}`;
+    });
+  }
+}
+
+Object.entries(inputs).forEach(([field, input]) => {
+  input.addEventListener('input', () => update(field, input.value));
+});
+
+document.querySelectorAll('.copybtn').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const id = (btn as HTMLButtonElement).dataset.target!;
+    const el = document.getElementById(id)!;
+    const range = document.createRange();
+    range.selectNode(el);
+    const sel = window.getSelection()!;
+    sel.removeAllRanges();
+    sel.addRange(range);
+    let ok = false;
+    try {
+      const html = el.innerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const text = new Blob([el.innerText], { type: 'text/plain' });
+      await navigator.clipboard.write([new ClipboardItem({ 'text/html': blob, 'text/plain': text })]);
+      ok = true;
+    } catch (e) {
+      try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+    }
+    sel.removeAllRanges();
+    const label = btn.textContent!;
+    btn.textContent = ok ? '✓ Copied' : 'Press ⌘C';
+    btn.classList.toggle('copied', ok);
+    setTimeout(() => { btn.textContent = label; btn.classList.remove('copied'); }, 1800);
+  });
+});
+</script>
+</body>
+</html>
