@@ -1,0 +1,223 @@
+---
+export const prerender = true
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Be Partner Labs</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @import '/src/styles/tokens.css';
+
+  html, body {
+    margin: 0; height: 100%;
+    background: var(--bpl-bg);
+    color: var(--bpl-ink);
+    font-family: var(--bpl-font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .watermark {
+    position: fixed;
+    right: -12vw;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+  [data-theme="dark"] .watermark { opacity: 0.08; }
+
+  nav {
+    position: relative; z-index: 1;
+    padding: 24px 40px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--bpl-line);
+  }
+  .brand-name { font-weight: 600; font-size: 16px; letter-spacing: -0.01em; color: var(--bpl-ink); text-decoration: none; }
+  .brand-labs {
+    font-family: var(--bpl-font-mono); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    background: var(--bpl-mint); color: var(--bpl-mint-ink);
+    padding: 3px 7px; border-radius: 3px;
+  }
+
+  main {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center;
+    padding: clamp(48px, 8vw, 120px) clamp(24px, 8vw, 120px);
+    max-width: 1000px;
+  }
+
+  .error-code {
+    font-family: var(--bpl-font-mono);
+    font-size: clamp(100px, 18vw, 200px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--bpl-mint);
+    margin: 0;
+    user-select: none;
+  }
+
+  .rule { width: 64px; height: 4px; background: var(--bpl-mint); margin: 32px 0; }
+
+  .eyebrow {
+    font-family: var(--bpl-font-mono);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--bpl-mint-deep);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    margin: 0 0 20px;
+    max-width: 14ch;
+    color: var(--bpl-ink);
+  }
+
+  .sub {
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.55;
+    color: var(--bpl-ink-2);
+    max-width: 52ch;
+    margin: 0 0 36px;
+  }
+
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 48px; padding: 0 24px;
+    font-family: var(--bpl-font-sans); font-size: 15px; font-weight: 500;
+    letter-spacing: -0.005em;
+    border-radius: var(--bpl-radius-md);
+    cursor: pointer; text-decoration: none;
+    transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+    border: 1px solid transparent;
+  }
+  .btn:hover  { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary   { background: var(--bpl-ink); color: var(--bpl-bg); }
+  .btn-secondary { background: transparent; color: var(--bpl-ink); border-color: var(--bpl-line); }
+
+  .links {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--bpl-line);
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .link-item {
+    display: flex; flex-direction: column; gap: 4px;
+    text-decoration: none;
+    transition: color 150ms;
+  }
+  .link-item:hover .link-label { color: var(--bpl-mint-deep); }
+  .link-num { font-family: var(--bpl-font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--bpl-mint-deep); }
+  .link-label { font-size: 14px; font-weight: 500; color: var(--bpl-ink); }
+
+  footer {
+    position: relative; z-index: 1;
+    padding: 20px 40px;
+    border-top: 1px solid var(--bpl-line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--bpl-font-mono); font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--bpl-ink-3);
+    flex-wrap: wrap; gap: 12px;
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 18px 20px; }
+    main { padding: 40px 20px; }
+    footer { padding: 16px 20px; }
+    .links { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="watermark" aria-hidden="true">
+    <svg width="70vw" viewBox="0 0 140.59 144.79" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;">
+      <path d="M62.35,14.51c-.36-.69-.74-1.35-1.16-1.98-.84-1.28-1.8-2.46-2.87-3.53-.52-.52-1.07-1.01-1.63-1.48-1.15-.94-2.4-1.79-3.72-2.54-.64-.36-1.3-.69-1.99-1-1.39-.62-2.84-1.16-4.36-1.61-.73-.21-1.47-.4-2.23-.57-.78-.17-1.57-.32-2.37-.45-.8-.13-1.61-.23-2.43-.31-.79-.08-1.59-.14-2.4-.18C34.05.02,33.21,0,32.35,0H6.13C2.74.02,0,2.76,0,6.15l.12,43.09c0,2.89,2.35,5.23,5.24,5.23h27.12c18.12-.02,32.78-8.33,32.77-26.88,0-5.12-1.04-9.45-2.9-13.07ZM88.54,22.57c.11,1.48.19,2.99.19,4.57.02,34.83-29.2,46.49-55.83,46.5H9.93c-5.3.01-9.59,4.31-9.59,9.61l.03,51.94c0,5.3,4.3,9.59,9.6,9.59l43.99-.02c55.68-.03,86.65-19.38,86.63-64.34-.01-24.67-14.89-48.74-52.05-57.85Z" fill="var(--bpl-mint)"/>
+    </svg>
+  </div>
+
+  <nav>
+    <a href="/" aria-label="Be Partner Labs home">
+      <svg width="22" height="23" viewBox="0 0 140.59 144.79" aria-hidden="true">
+        <path d="M62.35,14.51c-.36-.69-.74-1.35-1.16-1.98-.84-1.28-1.8-2.46-2.87-3.53-.52-.52-1.07-1.01-1.63-1.48-1.15-.94-2.4-1.79-3.72-2.54-.64-.36-1.3-.69-1.99-1-1.39-.62-2.84-1.16-4.36-1.61-.73-.21-1.47-.4-2.23-.57-.78-.17-1.57-.32-2.37-.45-.8-.13-1.61-.23-2.43-.31-.79-.08-1.59-.14-2.4-.18C34.05.02,33.21,0,32.35,0H6.13C2.74.02,0,2.76,0,6.15l.12,43.09c0,2.89,2.35,5.23,5.24,5.23h27.12c18.12-.02,32.78-8.33,32.77-26.88,0-5.12-1.04-9.45-2.9-13.07ZM88.54,22.57c.11,1.48.19,2.99.19,4.57.02,34.83-29.2,46.49-55.83,46.5H9.93c-5.3.01-9.59,4.31-9.59,9.61l.03,51.94c0,5.3,4.3,9.59,9.6,9.59l43.99-.02c55.68-.03,86.65-19.38,86.63-64.34-.01-24.67-14.89-48.74-52.05-57.85Z" fill="var(--bpl-mint)"/>
+      </svg>
+    </a>
+    <a href="/" class="brand-name">BePartner</a>
+    <span class="brand-labs">Labs</span>
+  </nav>
+
+  <main>
+    <p class="eyebrow">Error · 404</p>
+    <div class="error-code" aria-hidden="true">404</div>
+    <div class="rule"></div>
+    <h1>This page doesn't exist.</h1>
+    <p class="sub">
+      We don't invent work — and we don't invent pages either.
+      The URL you followed doesn't lead anywhere. That's on us, or on a stale link.
+    </p>
+    <div class="actions">
+      <a href="/" class="btn btn-primary">Back to home →</a>
+      <a href="mailto:hola@bepartnerlabs.com" class="btn btn-secondary">Contact us</a>
+    </div>
+
+    <nav class="links" aria-label="Quick links">
+      <a href="/#servicios" class="link-item">
+        <span class="link-num">01</span>
+        <span class="link-label">Services</span>
+      </a>
+      <a href="/#proceso" class="link-item">
+        <span class="link-num">02</span>
+        <span class="link-label">Process</span>
+      </a>
+      <a href="/#founders" class="link-item">
+        <span class="link-num">03</span>
+        <span class="link-label">Founders</span>
+      </a>
+      <a href="/contact" class="link-item">
+        <span class="link-num">04</span>
+        <span class="link-label">Contact</span>
+      </a>
+    </nav>
+  </main>
+
+  <footer>
+    <span>bepartnerlabs.com</span>
+    <span>Web performance partnerships · Sprint-based</span>
+  </footer>
+
+</div>
+
+<script>
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const apply = (dark: boolean) => document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  apply(mq.matches);
+  mq.addEventListener('change', (e) => apply(e.matches));
+</script>
+</body>
+</html>
